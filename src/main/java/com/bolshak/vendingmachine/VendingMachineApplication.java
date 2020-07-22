@@ -1,13 +1,13 @@
-package com.bolshak.vendingmashine;
+package com.bolshak.vendingmachine;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class VendingMashineApplication {
+public class VendingMachineApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(VendingMashineApplication.class, args);
+		SpringApplication.run(VendingMachineApplication.class, args);
 	}
 
 }
