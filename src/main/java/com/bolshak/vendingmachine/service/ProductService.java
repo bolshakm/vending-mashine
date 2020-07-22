@@ -1,12 +1,19 @@
 package com.bolshak.vendingmachine.service;
 
+import com.bolshak.vendingmachine.forms.ProductForm;
 import com.bolshak.vendingmachine.model.Product;
+
+import java.util.List;
 
 public interface ProductService {
 
-	void create(Product product);
+	void create(ProductForm form);
 
-	void update(Product product);
+	void update(ProductForm form);
 
-	void delete(Product product);
+	void delete(ProductForm form);
+
+	List<Product> findAll();
+
+	List<Product> findAll(List<Long> ids);
 }

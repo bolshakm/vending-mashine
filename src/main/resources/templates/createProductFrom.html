@@ -1,10 +1,82 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {font-family: Arial, Helvetica, sans-serif;}
+        form {
+            display: inline-block;
+        }
+        body {
+            text-align: center;
+        }
+
+        input[type=text], input[type=password] {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        button:hover {
+            opacity: 0.8;
+        }
+
+        .cancelbtn {
+            width: auto;
+            padding: 10px 18px;
+            background-color: #f44336;
+        }
+
+        .container {
+            padding: 16px;
+            width:35%;
+            align-items: center;
+            border: 3px solid #f1f1f1;
+            margin-left: auto;
+            margin-right: auto
+        }
+
+        span.psw {
+            float: right;
+            padding-top: 16px;
+        }
+
+    </style>
 </head>
 <body>
+
+<h2 align ="center">Product Form</h2>
+
+<form action="/createProduct" align ="center" method="post">
+
+    <div class="container">
+        <label><b>Name</b></label>
+        <input type="text" placeholder="Product name" name="name" required>
+
+        <label><b>Price</b></label>
+        <input type="number" placeholder="0" name="price" required>
+
+        <button type="submit">Create</button>
+
+    </div>
+
+    <div class="container" style="background-color:#f1f1f1">
+        <button type="button" class="cancelbtn">Cancel</button>
+    </div>
+</form>
 
 </body>
 </html>

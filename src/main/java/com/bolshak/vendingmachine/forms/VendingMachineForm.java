@@ -1,24 +1,14 @@
 package com.bolshak.vendingmachine.forms;
 
+import lombok.Data;
+
 import java.math.BigDecimal;
+import java.util.List;
 
+@Data
 public class VendingMachineForm {
+	private long id;
 	private String name;
-	private BigDecimal monay;
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public BigDecimal getMonay() {
-		return monay;
-	}
-
-	public void setMonay(BigDecimal monay) {
-		this.monay = monay;
-	}
+	private BigDecimal money;
+	private List<Long> productIds;
 }

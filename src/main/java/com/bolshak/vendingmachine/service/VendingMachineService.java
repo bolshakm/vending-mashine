@@ -1,12 +1,17 @@
 package com.bolshak.vendingmachine.service;
 
+import com.bolshak.vendingmachine.forms.VendingMachineForm;
 import com.bolshak.vendingmachine.model.VendingMachine;
+
+import java.util.List;
 
 public interface VendingMachineService {
 
-	void create(VendingMachine vendingMachine);
+	void save(VendingMachineForm form);
 
-	void update(VendingMachine vendingMachine);
+	void update(VendingMachineForm form);
 
-	void delete(VendingMachine vendingMachine);
+	void delete(VendingMachineForm form);
+
+	List<VendingMachine> findAll();
 }

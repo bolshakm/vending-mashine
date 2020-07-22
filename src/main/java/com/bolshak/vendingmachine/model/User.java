@@ -1,7 +1,9 @@
 package com.bolshak.vendingmachine.model;
 
 import lombok.Builder;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,6 +14,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 @Getter
+@NoArgsConstructor
 @Builder
 @Entity
 public class User {
