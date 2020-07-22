@@ -5,20 +5,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
-@Controller
+@Controller()
 public class MainController {
 	@Autowired
 	private UserService userServiceImpl;
 
 	@GetMapping("/")
-	public String main() {
-		userServiceImpl.isExist();
+	public String getMainPageByDefault() {
 		return "main";
 	}
 
-	@GetMapping("login")
-	public String login() {
-		return "login";
+	@GetMapping("/main")
+	public String getMainPage() {
+		return "main";
+	}
+
+	@GetMapping("/create/vending-machine")
+	public String createVendingMachine() {
+		return "";
 	}
 
 
