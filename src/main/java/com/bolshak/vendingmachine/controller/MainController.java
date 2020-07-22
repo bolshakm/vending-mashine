@@ -11,14 +11,15 @@ public class MainController {
 	private UserService userServiceImpl;
 
 	@GetMapping("/")
-	public String login() {
+	public String main() {
 		userServiceImpl.isExist();
+		return "main";
+	}
+
+	@GetMapping("login")
+	public String login() {
 		return "login";
 	}
 
-	@GetMapping("main")
-	public String main() {
-		return "main";
-	}
 
 }
