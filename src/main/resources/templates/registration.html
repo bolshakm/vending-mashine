@@ -12,7 +12,7 @@
             text-align: center;
         }
 
-        input[type=text], input[type=password] {
+        input[type=text], input[type=password], input[type=number] {
             width: 100%;
             padding: 12px 20px;
             margin: 8px 0;
@@ -59,27 +59,27 @@
 </head>
 <body>
 
-<h2 align ="center">Login Form</h2>
+<h2 align ="center">Registration Form</h2>
 
-<div th:if="${param.error}">
-Invalid username and password.
-</div>
-<div th:if="${param.logout}">
-    You have been logged out.
+<div th:if="${errorMessage}">
+   <p>${errorMessage}</p>
 </div>
 
-<form th:action="@{/login}" align ="center" method="post">
+<form th:action="@{/registration}" align ="center" method="post">
 
     <div class="container">
         <label><b>Username</b></label>
-        <input type="text" placeholder="Enter Username" name="username" required>
+        <input type="text" placeholder="Enter Login" name="login" required>
 
         <label><b>Password</b></label>
         <input type="password" placeholder="Enter Password" name="password" required>
 
-        <button type="submit">Login</button>
+        <label><b>Money</b></label>
+        <input type=number placeholder="Enter money" name="money" required>
 
-        <a href="/registration"><button type="button">Registration</button></a>
+        <button type="submit">Registration</button>
+
+        <a href="/login"> <button type="button" class="cancelbtn">Cancel</button></a>
 
     </div>
 </form>

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
     <meta charset="UTF-8">
     <title>Vending machines</title>
@@ -8,7 +9,9 @@
 <body data-gr-c-s-loaded="true">
 <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
     <h5 class="my-0 mr-md-auto font-weight-normal">Vending machines</h5>
-    <a class="btn btn-outline-primary" href=/login>Sign up</a>
+    <form th:action="@{/logout}" method="post">
+        <input class="btn btn-outline-primary" type="submit" value="Sign Out"/>
+    </form>
 </div>
 
 <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">

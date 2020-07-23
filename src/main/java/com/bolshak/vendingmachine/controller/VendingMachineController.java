@@ -7,6 +7,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class VendingMachineController {
 	@GetMapping
 	public String get(){
-		return "main";
+		return "index";
 	}
 }
