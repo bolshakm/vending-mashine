@@ -8,7 +8,11 @@ import com.bolshak.vendingmachine.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Hashtable;
 import java.util.Objects;
+import java.util.Set;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -21,8 +25,9 @@ public class UserServiceImpl implements UserService {
 		User user = User.builder()
 				.login(form.getLogin())
 				.password(form.getPassword())
+				.active(true)
 				.money(form.getMoney())
-				.role(Role.USER).build();
+				.role(Collections.singleton(Role.USER)).build();
 		userRepoImpl.save(user);
 	}
 

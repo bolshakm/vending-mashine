@@ -2,22 +2,18 @@ package com.bolshak.vendingmachine.config;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
 import javax.sql.DataSource;
 
 @Configuration
 @EnableWebSecurity
+//@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
@@ -43,7 +39,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		auth.jdbcAuthentication()
 				.dataSource(dataSource)
 				.passwordEncoder(NoOpPasswordEncoder.getInstance())
-				.usersByUsernameQuery("select name, password, role from user whee name = ?;");
+				.usersByUsernameQuery("select login, password, active from user where login =?")
+				.authoritiesByUsernameQuery("select u.login, ur.role from user u inner join user_role ur on u.id=ur.user_id where login =?");
+
+//		auth
+//				.userDetailsService(userDetailsService)
+//				.passwordEncoder(bCryptPasswordEncoder);
 	}
 
 //	@Bean
