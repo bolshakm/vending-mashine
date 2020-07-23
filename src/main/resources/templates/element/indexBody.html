@@ -1,0 +1,37 @@
+<div th:fragment="body">
+
+    <div th:insert="element/header :: header"></div>
+
+
+    <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+        <h1 class="display-4">Select vending machine</h1>
+        <p class="lead">All vending-machines specialize by product typejjjj</p>
+        <p class="lead">This content is only shown to administrators.</p>
+    </div>
+
+
+    <div class="container">
+        <div class="card-deck mb-3 text-center">
+            <div th:each="machine : ${vendingMachines}">
+
+                <div class="card mb-4 shadow-sm">
+                    <div class="card-header">
+                        <h4 class="my-0 font-weight-normal"><p th:text="${machine.name}"/></h4>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-unstyled mt-3 mb-4">
+                            <p th:text="${machine.description}"/>
+                        </ul>
+                        <a href="/vending-machine/${machine.id}">
+                            <button type="button" class="btn btn-lg btn-block btn-primary">Select</button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div th:insert="element/footer :: footer"></div>
+
+    </div>
+</div>
+

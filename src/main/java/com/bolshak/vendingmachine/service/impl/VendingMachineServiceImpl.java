@@ -28,6 +28,7 @@ public class VendingMachineServiceImpl implements VendingMachineService {
 		VendingMachine vendingMachine = VendingMachine.builder()
 				.name(form.getName())
 				.money(form.getMoney())
+				.description(form.getDescription())
 				.products(products).build();
 		vendingMachineRepoImpl.save(vendingMachine);
 	}

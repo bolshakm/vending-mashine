@@ -27,6 +27,7 @@ public class VendingMachine implements Serializable {
 	private Long id;
 	private String name;
 	private BigDecimal money;
+	private String description;
 	@OneToMany
 	private List<Product> products;
 }

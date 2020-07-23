@@ -9,6 +9,7 @@ import java.util.List;
 public class VendingMachineForm {
 	private long id;
 	private String name;
+	private String description;
 	private BigDecimal money;
 	private List<Long> productIds;
 }

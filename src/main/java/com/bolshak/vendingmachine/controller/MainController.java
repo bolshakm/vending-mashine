@@ -1,6 +1,7 @@
 package com.bolshak.vendingmachine.controller;
 
 import com.bolshak.vendingmachine.forms.UserForm;
+import com.bolshak.vendingmachine.model.VendingMachine;
 import com.bolshak.vendingmachine.service.UserService;
 import com.bolshak.vendingmachine.service.VendingMachineService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +11,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.List;
 
 @Controller()
 public class MainController {
@@ -22,19 +24,18 @@ public class MainController {
 	private UserService userServiceImpl;
 
 
-//	@PreAuthorize("hasAnyRole('ADMIN', 'USER')")
+	@PreAuthorize("hasAnyAuthority('ADMIN', 'USER')")
 	@GetMapping("/index")
 	public String getMainPage(Model model) {
-//		List<VendingMachine> vendingMachines = vendingMachineService.findAll();
-//		model.addAttribute(vendingMachines);
-//		userServiceImpl.
+		List<VendingMachine> vendingMachines = vendingMachineServiceImpl.findAll();
+		model.addAttribute(vendingMachines);
 		return "index";
 	}
 
-	@GetMapping("/create/vending-machine")
-	public String createVendingMachine() {
-		return "";
-	}
+//	@GetMapping("/create/vending-machine")
+//	public String createVendingMachine() {
+//		return "createMachineForm";
+//	}
 
 	@GetMapping("/registration")
 	public String getRegistrationPage() {
