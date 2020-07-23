@@ -17,40 +17,39 @@ import java.util.Optional;
 public class VendingMachineServiceImpl implements VendingMachineService {
 
 	@Autowired
-	private VendingMachineRepo vendingMachineRepo;
+	private VendingMachineRepo vendingMachineRepoImpl;
 
 	@Autowired
-	private ProductService productService;
-
+	private ProductService productServiceImpl;
 
 	@Override
 	public void save(VendingMachineForm form) {
-		List<Product> products = productService.findAll(form.getProductIds());
+		List<Product> products = productServiceImpl.findAll(form.getProductIds());
 		VendingMachine vendingMachine = VendingMachine.builder()
 				.name(form.getName())
 				.money(form.getMoney())
 				.products(products).build();
-		vendingMachineRepo.save(vendingMachine);
+		vendingMachineRepoImpl.save(vendingMachine);
 	}
 
 	@Override
 	public void update(VendingMachineForm form) {
-		Optional<VendingMachine> vendingMachineForUpdate = vendingMachineRepo.findById(form.getId());
+		Optional<VendingMachine> vendingMachineForUpdate = vendingMachineRepoImpl.findById(form.getId());
 		if (vendingMachineForUpdate.isPresent()){
 			VendingMachine vendingMachine = vendingMachineForUpdate.get();
 			vendingMachine.setName(form.getName());
 			vendingMachine.setMoney(form.getMoney());
-			vendingMachine.setProducts(productService.findAll(form.getProductIds()));
+			vendingMachine.setProducts(productServiceImpl.findAll(form.getProductIds()));
 		}
 	}
 
 	@Override
 	public void delete(VendingMachineForm form) {
-		vendingMachineRepo.deleteById(form.getId());
+		vendingMachineRepoImpl.deleteById(form.getId());
 	}
 
 	@Override
 	public List<VendingMachine> findAll() {
-		return vendingMachineRepo.findAll();
+		return vendingMachineRepoImpl.findAll();
 	}
 }

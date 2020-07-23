@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 public class UserServiceImpl implements UserService {
 
 	@Autowired
-	private UserRepo userRepo;
+	private UserRepo userRepoImpl;
 
 	@Override
 	public boolean isExist() {

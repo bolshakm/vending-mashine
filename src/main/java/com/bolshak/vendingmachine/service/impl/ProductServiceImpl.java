@@ -14,7 +14,7 @@ import java.util.Optional;
 public class ProductServiceImpl implements ProductService {
 
 	@Autowired
-	private ProductRepo productRepo;
+	private ProductRepo productRepoImpl;
 
 	@Override
 	public void create(ProductForm form) {
@@ -23,33 +23,33 @@ public class ProductServiceImpl implements ProductService {
 				.price(form.getPrice())
 				.build();
 
-		productRepo.save(product);
+		productRepoImpl.save(product);
 	}
 
 	@Override
 	public void update(ProductForm form) {
-		Optional<Product> productFromUpdating = productRepo.findById(form.getId());
+		Optional<Product> productFromUpdating = productRepoImpl.findById(form.getId());
 		if (productFromUpdating.isPresent()) {
 			Product product = productFromUpdating.get();
 			form.setName(product.getName());
 			form.setPrice(product.getPrice());
-			productRepo.save(product);
+			productRepoImpl.save(product);
 		}
 
 	}
 
 	@Override
 	public void delete(ProductForm form) {
-		productRepo.deleteById(form.getId());
+		productRepoImpl.deleteById(form.getId());
 	}
 
 	@Override
 	public List<Product> findAll() {
-		return productRepo.findAll();
+		return productRepoImpl.findAll();
 	}
 
 	@Override
 	public List<Product> findAll(List<Long> ids) {
-		return productRepo.findAllById(ids);
+		return productRepoImpl.findAllById(ids);
 	}
 }
