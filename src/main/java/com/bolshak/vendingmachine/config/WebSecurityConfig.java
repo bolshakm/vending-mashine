@@ -2,12 +2,14 @@ package com.bolshak.vendingmachine.config;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 
 import javax.sql.DataSource;
@@ -30,6 +32,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.formLogin()
 				.loginPage("/login")
 				.permitAll()
+				.defaultSuccessUrl("/index")
 				.and()
 				.logout()
 				.permitAll();
@@ -41,23 +44,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.dataSource(dataSource)
 				.passwordEncoder(NoOpPasswordEncoder.getInstance())
 				.usersByUsernameQuery("select login, password, active from user where login =?")
-				.authoritiesByUsernameQuery("select u.login, ur.role from user u inner join user_role ur on u.id=ur.user_id where login =?");
-
-//		auth
-//				.userDetailsService(userDetailsService)
-//				.passwordEncoder(bCryptPasswordEncoder);
+				.authoritiesByUsernameQuery(
+						"select u.login, ur.role from user u inner join user_role ur on u.id=ur.user_id where login =?");
 	}
-
-//	@Bean
-//	@Override
-//	public UserDetailsService userDetailsService() {
-//		UserDetails user =
-//				User.withDefaultPasswordEncoder()
-//						.username("user")
-//						.password("1234")
-//						.roles("USER")
-//						.build();
-//
-//		return new InMemoryUserDetailsManager(user);
-//	}
 }

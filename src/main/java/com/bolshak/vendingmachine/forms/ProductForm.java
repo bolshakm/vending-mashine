@@ -6,7 +6,7 @@ import java.math.BigDecimal;
 
 @Data
 public class ProductForm {
-	private long id;
+	private Long id;
 	private String name;
 	private BigDecimal price;
 }

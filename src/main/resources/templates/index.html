@@ -5,10 +5,25 @@
 <head>
     <meta charset="UTF-8">
     <title>Vending machines</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 </head>
 <body>
-<div th:insert="element/indexBody :: boody"></div>
+
+<div th:if="${isIndex}">
+    <div th:insert="element/indexBody :: body"></div>
+</div>
+
+<div th:if="${isProduct}">
+    <div th:insert="element/product :: body"></div>
+</div>
+
+<div sec:authorize="hasRole('ADMIN')">
+    This content is only shown to administrators.
+</div>
+<div sec:authorize="hasRole('ROLE_USER')">
+    This content is only shown to users.
+</div>
 
 </body>
 </html>

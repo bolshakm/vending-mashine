@@ -11,9 +11,11 @@ public interface ProductService {
 
 	void update(ProductForm form);
 
-	void delete(ProductForm form);
+	void delete(Long id);
 
 	List<Product> findAll();
+
+	Product findById(Long id);
 
 	List<Product> findAll(List<Long> ids);
 }

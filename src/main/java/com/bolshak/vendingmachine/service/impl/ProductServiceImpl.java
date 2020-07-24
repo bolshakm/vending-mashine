@@ -4,6 +4,7 @@ import com.bolshak.vendingmachine.forms.ProductForm;
 import com.bolshak.vendingmachine.model.Product;
 import com.bolshak.vendingmachine.repo.ProductRepo;
 import com.bolshak.vendingmachine.service.ProductService;
+import com.sun.istack.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,21 +32,28 @@ public class ProductServiceImpl implements ProductService {
 		Optional<Product> productFromUpdating = productRepoImpl.findById(form.getId());
 		if (productFromUpdating.isPresent()) {
 			Product product = productFromUpdating.get();
-			form.setName(product.getName());
-			form.setPrice(product.getPrice());
+			product.setName(form.getName());
+			product.setPrice(form.getPrice());
 			productRepoImpl.save(product);
 		}
 
 	}
 
 	@Override
-	public void delete(ProductForm form) {
-		productRepoImpl.deleteById(form.getId());
+	public void delete(Long id) {
+		productRepoImpl.deleteById(id);
 	}
 
 	@Override
 	public List<Product> findAll() {
 		return productRepoImpl.findAll();
+	}
+
+	@Nullable
+	@Override
+	public Product findById(Long id) {
+		Optional<Product> result = productRepoImpl.findById(id);
+		return result.orElse(null);
 	}
 
 	@Override

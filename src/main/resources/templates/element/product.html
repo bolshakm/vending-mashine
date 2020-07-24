@@ -1,0 +1,60 @@
+<div th:fragment="body">
+
+    <div th:insert="element/header :: header"></div>
+
+    <div class="container">
+        <div class="card-deck mb-3 text-center">
+
+            <div th:each="product : ${allProducts}">
+
+                <div class="card mb-4 shadow-sm">
+                    <div class="card-header">
+                        <h4 class="my-0 font-weight-normal">
+                            <p th:text="${product.name} + ' - ' + ${product.price}"></p>
+
+                        </h4>
+                    </div>
+                    <div class="card-body">
+                        <a th:href="@{/products/edit/(id=${product.id})}">
+                            <button type="button" class="btn btn-primary">Edit</button>
+                        </a>
+                        <a th:href="@{/products/delete/(id=${product.id})}">
+                            <button type="button" class="btn btn-primary">Delete</button>
+                        </a>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <form th:action="@{/products/save}" align="center" method="post">
+
+            <div class="container">
+                <div th:if="${product != null}">
+                    <input type="hidden" name="id" th:attr="value=${product.id}" required>
+                    <label><b>Product name</b></label>
+                    <input name="name" th:attr="value=${product.name}" required>
+
+                    <label><b>Price</b></label>
+                    <input step=".01" type="number" th:attr="value=${product.price}" name="price" required>
+                </div>
+
+                <div th:if="${product == null}">
+
+                    <label><b>Product name</b></label>
+                    <input type="text" placeholder="Product name" name="name" required>
+
+                    <label><b>Price</b></label>
+                    <input type="number" step=".01" placeholder="Product price" name="price" required>
+                </div>
+
+                <button type="submit" class="btn btn-lg btn-block btn-primary">Save</button>
+
+            </div>
+        </form>
+    </div>
+
+
+</div>

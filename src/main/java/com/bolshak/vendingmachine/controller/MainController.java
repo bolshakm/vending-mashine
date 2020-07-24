@@ -27,8 +27,9 @@ public class MainController {
 	@PreAuthorize("hasAnyAuthority('ADMIN', 'USER')")
 	@GetMapping("/index")
 	public String getMainPage(Model model) {
-		List<VendingMachine> vendingMachines = vendingMachineServiceImpl.findAll();
-		model.addAttribute(vendingMachines);
+//		List<VendingMachine> vendingMachines = vendingMachineServiceImpl.findAll();
+//		model.addAttribute(vendingMachines);
+		model.addAttribute("isIndex", true);
 		return "index";
 	}
 
