@@ -4,13 +4,11 @@
     <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
         <h5 class="my-0 mr-md-auto font-weight-normal"><a href="/index">Vending machines</a></h5>
 
-        <div sec:authorize="hasRole('ROLE_ADMIN')">
             <nav class="my-2 my-md-0 mr-md-3">
-                <a class="p-2 text-dark" href="/products">Manage products</a>
-                <a class="p-2 text-dark" href="/user">User</a>
-                <a class="p-2 text-dark" href="/vending-machine">Manage vending machines</a>
+                <a sec:authorize="hasAuthority('ADMIN')" class="p-2 text-dark" href="/products">Manage products</a>
+                <a class="p-2 text-dark" href="/user">My products</a>
+                <a sec:authorize="hasAuthority('ADMIN')" class="p-2 text-dark" href="/vending-machine">Manage vending machines</a>
             </nav>
-        </div>
         <form th:action="@{/logout}" method="post">
             <input class="btn btn-outline-primary" type="submit" value="Sign Out"/>
         </form>
