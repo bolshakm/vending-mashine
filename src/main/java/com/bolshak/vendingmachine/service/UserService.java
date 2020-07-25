@@ -14,4 +14,6 @@ public interface UserService {
 	boolean isBuyingProductSuccessful(Long vendingMachineId, Long productId);
 
 	User getCurrentUser();
+
+	void useProduct(Long productId);
 }

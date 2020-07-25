@@ -21,6 +21,10 @@
     <div th:insert="element/product :: body"></div>
 </div>
 
+<div th:if="${isUserPage}">
+    <div th:insert="element/user :: body"></div>
+</div>
+
 <div th:if="${isSelectedVMPage}">
     <div th:insert="element/selectedvendingmachine :: body"></div>
 </div>

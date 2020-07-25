@@ -1,0 +1,27 @@
+<div th:fragment="body">
+
+    <div class="container">
+        <div class="card-deck mb-3 text-center">
+
+            <div th:each="product : ${allProducts}">
+
+                <div class="card mb-4 shadow-sm">
+                    <div class="card-header">
+                        <h4 class="my-0 font-weight-normal">
+                            <p th:text="${product.name} + ' - ' + ${product.price}"></p>
+
+                        </h4>
+                    </div>
+                    <div class="card-body">
+                        <a th:href="@{/user/use/(id=${product.id})}">
+                            <button type="button" class="btn btn-primary">Use</button>
+                        </a>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>

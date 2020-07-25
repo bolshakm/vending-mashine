@@ -16,9 +16,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
 import java.math.BigDecimal;
 import java.util.Collections;
+import java.util.List;
 import java.util.Objects;
 
 @Service
@@ -94,5 +94,13 @@ public class UserServiceImpl implements UserService {
 	public User getCurrentUser() {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		return userRepo.findUserByLogin(authentication.getName());
+	}
+
+	@Override
+	public void useProduct(Long productId) {
+		User currentUser = getCurrentUser();
+		currentUser.getProducts().remove(productService.findById(productId));
+		userRepo.save(currentUser);
+
 	}
 }
