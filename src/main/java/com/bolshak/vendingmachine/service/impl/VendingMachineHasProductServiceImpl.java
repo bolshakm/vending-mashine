@@ -1,6 +1,5 @@
 package com.bolshak.vendingmachine.service.impl;
 
-import com.bolshak.vendingmachine.model.VendingMachine;
 import com.bolshak.vendingmachine.model.VendingMachineHasProduct;
 import com.bolshak.vendingmachine.repo.VendingMachineHasProductRepo;
 import com.bolshak.vendingmachine.service.VendingMachineHasProductService;
@@ -34,6 +33,4 @@ public class VendingMachineHasProductServiceImpl implements VendingMachineHasPro
 				.filter(item -> item.getVendingMachine().getId().equals(vendingMachineId))
 				.collect(Collectors.toList());
 	}
-
-
 }

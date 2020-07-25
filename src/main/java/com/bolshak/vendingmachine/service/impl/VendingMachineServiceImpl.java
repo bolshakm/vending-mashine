@@ -26,7 +26,6 @@ import static java.util.Objects.isNull;
 @Service
 public class VendingMachineServiceImpl implements VendingMachineService {
 
-	private static final int DEFAULT_PRODUCT_COUNT = 10;
 	@Autowired
 	private VendingMachineRepo vendingMachineRepo;
 
@@ -37,20 +36,16 @@ public class VendingMachineServiceImpl implements VendingMachineService {
 	private ProductService productServiceImpl;
 
 	@Override
-//	@Transactional
+	@Transactional
 	public void save(VendingMachineForm form) {
 		List<Product> products =
 				productServiceImpl.findAll(convertProductsId(form.getProductIds()));
 
 		VendingMachine vendingMachine = vendingMachineRepo.save(buildVendingMachine(form));
-		System.out.println(vendingMachine.getId());
 		List<VendingMachineHasProduct> vendingMachineHasProductList = products
 				.stream()
 				.map(product -> VendingMachineHasProduct.builder()
-						.id(ProductVendingMachineCompositeId.builder()
-								.productId(product.getId())
-								.vendingMachineId(vendingMachine.getId())
-								.build())
+						.id(buildCompositeId(vendingMachine, product))
 						.product(product)
 						.vendingMachine(vendingMachine)
 						.count(form.getProductCount())
@@ -58,14 +53,6 @@ public class VendingMachineServiceImpl implements VendingMachineService {
 				.collect(Collectors.toList());
 
 		vendingMachineHasProductService.saveAll(vendingMachineHasProductList);
-	}
-
-	private VendingMachine buildVendingMachine(VendingMachineForm form) {
-		return VendingMachine.builder()
-					.name(form.getName())
-					.money(form.getMoney())
-					.description(form.getDescription())
-					.build();
 	}
 
 	@Override
@@ -97,8 +84,24 @@ public class VendingMachineServiceImpl implements VendingMachineService {
 		return vendingMachineRepo.getOne(id);
 	}
 
+	private ProductVendingMachineCompositeId buildCompositeId(VendingMachine vendingMachine,
+			Product product) {
+		return ProductVendingMachineCompositeId.builder()
+				.productId(product.getId())
+				.vendingMachineId(vendingMachine.getId())
+				.build();
+	}
+
+	private VendingMachine buildVendingMachine(VendingMachineForm form) {
+		return VendingMachine.builder()
+				.name(form.getName())
+				.money(form.getMoney())
+				.description(form.getDescription())
+				.build();
+	}
+
 	private List<Long> convertProductsId(String[] ids) {
-		if (isNull(ids)){
+		if (isNull(ids)) {
 			return Collections.emptyList();
 		}
 		return Stream.of(ids)
