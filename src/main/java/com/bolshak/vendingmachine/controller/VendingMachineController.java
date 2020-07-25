@@ -23,9 +23,6 @@ public class VendingMachineController {
 	private VendingMachineService vendingMachineServiceImpl;
 
 	@Autowired
-	private VendingMachineHasProductService vendingMachineHasProductService;
-
-	@Autowired
 	private ProductService productServiceImpl;
 
 	@GetMapping("/vending-machine")
@@ -47,9 +44,7 @@ public class VendingMachineController {
 
 	@GetMapping("/vending-machine/edit")
 	public String update(@RequestParam String id, Model model) {
-		System.out.println(id);
 		VendingMachine vendingMachine = vendingMachineServiceImpl.find(Long.parseLong(id));
-		System.out.println(vendingMachine);
 		List<VendingMachine> vendingMachines = vendingMachineServiceImpl.findAll();
 		List<Product> allProducts = productServiceImpl.findAll();
 
