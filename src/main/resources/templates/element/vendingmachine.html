@@ -78,6 +78,55 @@
                     <button type="submit" class="btn btn-lg btn-block btn-primary">Save</button>
 
                 </div>
+
+                <div th:if="${vendingMachine != null}">
+                    <table align="center">
+                        <input type="hidden" name="id" th:attr="value=${vendingMachine.id}" required>
+                        <tr>
+                            <td align="left">
+                                <label><b>Name</b></label>
+                            </td>
+                            <td align="right">
+                                <input type="text" placeholder="Machine name" th:attr="value=${vendingMachine.name}" name="name" required>
+                            </td>
+                        <tr>
+                            <td align="left">
+                                <label><b>Description</b></label>
+                            </td>
+                            <td align="right">
+                                <input type="text" placeholder="Description" th:attr="value=${vendingMachine.description}" name="description" required>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="left">
+                                <label><b>Money</b></label>
+                            </td>
+                            <td align="right">
+                                <input type="number" step=".01" placeholder="Money" th:attr="value=${vendingMachine.money}" name="money" required>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="left">
+                                <label><b>Product count</b></label>
+                            </td>
+                            <td align="right">
+                                <input type="number" th:attr="value=${vendingMachine.defaultProductCount}" name="productCount" required>
+                            </td>
+                        </tr>
+                        <label><b>Products</b></label>
+                        <div th:each="product : ${allProducts}">
+                            <tr>
+                                <td align="left">
+                                    <input type="checkbox" name="productIds" th:attr="value=${product.id}">
+                                </td>
+                                <td align="left"><p th:text="${product.name} + ' - ' + ${product.price}"></p></td>
+                            </tr>
+
+                        </div>
+                    </table>
+                    <button type="submit" class="btn btn-lg btn-block btn-primary">Save</button>
+
+                </div>
             </div>
         </form>
     </div>

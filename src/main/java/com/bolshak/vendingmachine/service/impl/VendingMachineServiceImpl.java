@@ -5,7 +5,6 @@ import com.bolshak.vendingmachine.model.Product;
 import com.bolshak.vendingmachine.model.ProductVendingMachineCompositeId;
 import com.bolshak.vendingmachine.model.VendingMachine;
 import com.bolshak.vendingmachine.model.VendingMachineHasProduct;
-import com.bolshak.vendingmachine.repo.VendingMachineHasProductRepo;
 import com.bolshak.vendingmachine.repo.VendingMachineRepo;
 import com.bolshak.vendingmachine.service.ProductService;
 import com.bolshak.vendingmachine.service.VendingMachineHasProductService;
@@ -38,24 +37,13 @@ public class VendingMachineServiceImpl implements VendingMachineService {
 	@Override
 	@Transactional
 	public void save(VendingMachineForm form) {
-		List<Product> products =
-				productServiceImpl.findAll(convertProductsId(form.getProductIds()));
-
 		VendingMachine vendingMachine = vendingMachineRepo.save(buildVendingMachine(form));
-		List<VendingMachineHasProduct> vendingMachineHasProductList = products
-				.stream()
-				.map(product -> VendingMachineHasProduct.builder()
-						.id(buildCompositeId(vendingMachine, product))
-						.product(product)
-						.vendingMachine(vendingMachine)
-						.count(form.getProductCount())
-						.build())
-				.collect(Collectors.toList());
 
-		vendingMachineHasProductService.saveAll(vendingMachineHasProductList);
+		saveProductsForVendingMachine(form, vendingMachine);
 	}
 
 	@Override
+//	todo add transaction
 	public void update(VendingMachineForm form) {
 		Optional<VendingMachine> vendingMachineForUpdate =
 				vendingMachineRepo.findById(form.getId());
@@ -64,6 +52,10 @@ public class VendingMachineServiceImpl implements VendingMachineService {
 			VendingMachine vendingMachine = vendingMachineForUpdate.get();
 			vendingMachine.setName(form.getName());
 			vendingMachine.setMoney(form.getMoney());
+			vendingMachine.setDescription(form.getDescription());
+			vendingMachine.setDefaultProductCount(form.getProductCount());
+			vendingMachineRepo.save(vendingMachine);
+			updateProductsForVendingMachine(form, vendingMachine);
 		}
 	}
 
@@ -84,6 +76,30 @@ public class VendingMachineServiceImpl implements VendingMachineService {
 		return vendingMachineRepo.getOne(id);
 	}
 
+	private void updateProductsForVendingMachine(VendingMachineForm form,
+			VendingMachine vendingMachine) {
+		vendingMachineHasProductService.deleteAllByVendingMachineId(form.getId());
+		saveProductsForVendingMachine(form, vendingMachine);
+	}
+
+	private void saveProductsForVendingMachine(VendingMachineForm form,
+			VendingMachine vendingMachine) {
+		List<Product> products =
+				productServiceImpl.findAll(convertProductsId(form.getProductIds()));
+
+		List<VendingMachineHasProduct> vendingMachineHasProductList = products
+				.stream()
+				.map(product -> VendingMachineHasProduct.builder()
+						.id(buildCompositeId(vendingMachine, product))
+						.product(product)
+						.vendingMachine(vendingMachine)
+						.count(form.getProductCount())
+						.build())
+				.collect(Collectors.toList());
+
+		vendingMachineHasProductService.saveAll(vendingMachineHasProductList);
+	}
+
 	private ProductVendingMachineCompositeId buildCompositeId(VendingMachine vendingMachine,
 			Product product) {
 		return ProductVendingMachineCompositeId.builder()
@@ -97,6 +113,7 @@ public class VendingMachineServiceImpl implements VendingMachineService {
 				.name(form.getName())
 				.money(form.getMoney())
 				.description(form.getDescription())
+				.defaultProductCount(form.getProductCount())
 				.build();
 	}
 

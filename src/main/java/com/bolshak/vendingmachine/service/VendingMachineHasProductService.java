@@ -1,6 +1,5 @@
 package com.bolshak.vendingmachine.service;
 
-import com.bolshak.vendingmachine.model.VendingMachine;
 import com.bolshak.vendingmachine.model.VendingMachineHasProduct;
 
 import java.util.List;
