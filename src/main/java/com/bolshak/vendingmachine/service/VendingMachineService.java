@@ -11,7 +11,9 @@ public interface VendingMachineService {
 
 	void update(VendingMachineForm form);
 
-	void delete(VendingMachineForm form);
+	void delete(Long id);
 
 	List<VendingMachine> findAll();
+
+	VendingMachine find(Long id);
 }

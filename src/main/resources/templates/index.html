@@ -10,12 +10,19 @@
 </head>
 <body>
 
+    <div th:insert="element/header :: header"></div>
+
 <div th:if="${isIndex}">
     <div th:insert="element/indexBody :: body"></div>
 </div>
 
+
 <div th:if="${isProduct}">
     <div th:insert="element/product :: body"></div>
+</div>
+
+<div th:if="${isVendingMachine}">
+    <div th:insert="element/vendingmachine :: body"></div>
 </div>
 
 <div sec:authorize="hasRole('ADMIN')">
@@ -24,6 +31,9 @@
 <div sec:authorize="hasRole('ROLE_USER')">
     This content is only shown to users.
 </div>
+
+<div th:insert="element/footer :: footer"></div>
+
 
 </body>
 </html>

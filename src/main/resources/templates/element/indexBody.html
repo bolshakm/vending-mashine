@@ -1,11 +1,8 @@
 <div th:fragment="body">
 
-    <div th:insert="element/header :: header"></div>
-
-
     <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
         <h1 class="display-4">Select vending machine</h1>
-        <p class="lead">All vending-machines specialize by product typejjjj</p>
+        <p class="lead">All vending-machines specialize by product type</p>
         <p class="lead">This content is only shown to administrators.</p>
     </div>
 
@@ -22,16 +19,14 @@
                         <ul class="list-unstyled mt-3 mb-4">
                             <p th:text="${machine.description}"/>
                         </ul>
-                        <a href="/vending-machine/${machine.id}">
+                        <a th:href="@{/vending-machine/edit/(id=${machine.id})}">
                             <button type="button" class="btn btn-lg btn-block btn-primary">Select</button>
                         </a>
+
                     </div>
                 </div>
             </div>
         </div>
 
-        <div th:insert="element/footer :: footer"></div>
-
-    </div>
 </div>
 

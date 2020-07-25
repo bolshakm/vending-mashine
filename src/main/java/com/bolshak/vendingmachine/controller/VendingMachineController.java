@@ -9,12 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
-@Controller("/vending-machine")
+@Controller()
 public class VendingMachineController {
 	@Autowired
 	private VendingMachineService vendingMachineServiceImpl;
@@ -22,22 +22,33 @@ public class VendingMachineController {
 	@Autowired
 	private ProductService productServiceImpl;
 
-	@GetMapping({"vendingMachine"})
-	public String get(@PathVariable VendingMachine vendingMachine, Model model) {
-		model.addAttribute(vendingMachine);
-		return "vendingMachine";
-	}
-
-	@GetMapping("/create")
-	public String getCreatePage(Model model) {
+	@GetMapping("/vending-machine")
+	public String get(Model model) {
+		List<VendingMachine> vendingMachines = vendingMachineServiceImpl.findAll();
 		List<Product> allProducts = productServiceImpl.findAll();
-		model.addAttribute(allProducts);
-		return "createVendingMachine";
+
+		model.addAttribute("allProducts",allProducts);
+		model.addAttribute("vendingMachines", vendingMachines);
+		model.addAttribute("isVendingMachine", true); // todo chenge all to enable....element
+		return "index";
 	}
 
-	@PostMapping("/create")
-	public String create(VendingMachineForm vendingMachineForm) {
+	@GetMapping("/vending-machine/delete")
+	public String delete(@RequestParam String id) {
+		vendingMachineServiceImpl.delete(Long.parseLong(id));
+		return "redirect:/vending-machine";
+	}
+
+	@GetMapping("/vending-machine/update")
+	public String update(@RequestParam String id, Model model) {
+		VendingMachine vendingMachine = vendingMachineServiceImpl.find(Long.parseLong(id));
+		model.addAttribute("vendingMachine", vendingMachine);
+		return "redirect:/vending-machine";
+	}
+
+	@PostMapping("/vending-machine/save")
+	public String save(VendingMachineForm vendingMachineForm, Model model) {
 		vendingMachineServiceImpl.save(vendingMachineForm);
-		return "createVendingMachine";
+		return "redirect:/vending-machine";
 	}
 }

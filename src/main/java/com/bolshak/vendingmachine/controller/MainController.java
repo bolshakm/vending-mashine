@@ -27,16 +27,11 @@ public class MainController {
 	@PreAuthorize("hasAnyAuthority('ADMIN', 'USER')")
 	@GetMapping("/index")
 	public String getMainPage(Model model) {
-//		List<VendingMachine> vendingMachines = vendingMachineServiceImpl.findAll();
-//		model.addAttribute(vendingMachines);
+		List<VendingMachine> vendingMachines = vendingMachineServiceImpl.findAll();
+		model.addAttribute("vendingMachines", vendingMachines);
 		model.addAttribute("isIndex", true);
 		return "index";
 	}
-
-//	@GetMapping("/create/vending-machine")
-//	public String createVendingMachine() {
-//		return "createMachineForm";
-//	}
 
 	@GetMapping("/registration")
 	public String getRegistrationPage() {

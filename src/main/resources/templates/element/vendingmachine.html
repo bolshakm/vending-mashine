@@ -1,0 +1,86 @@
+<div th:fragment="body">
+
+
+    <div class="container">
+        <div class="card-deck mb-3 text-center">
+            <div th:each="machine : ${vendingMachines}">
+
+                <div class="card mb-4 shadow-sm">
+                    <div class="card-header">
+                        <h4 class="my-0 font-weight-normal"><p th:text="${machine.name}"/></h4>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-unstyled mt-3 mb-4">
+                            <p th:text="${machine.description}"/>
+                        </ul>
+                        <a th:href="@{/vending-machine/edit/(id=${machine.id})}">
+                            <button type="button" class="btn btn-primary">Edit</button>
+                        </a>
+                        <a th:href="@{/vending-machine/delete/(id=${machine.id})}">
+                            <button type="button" class="btn btn-primary">Delete</button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+    <div class="container">
+        <form th:action="@{/vending-machine/save}" align="center" method="post">
+
+            <div class="container">
+
+                <div th:if="${vendingMachine == null}">
+                    <table align="center">
+                        <tr>
+                            <td align="left">
+                                <label><b>Name</b></label>
+                            </td>
+                            <td align="right">
+                                <input type="text" placeholder="Machine name" name="name" required>
+                            </td>
+                        <tr>
+                            <td align="left">
+                                <label><b>Description</b></label>
+                            </td>
+                            <td align="right">
+                                <input type="text" placeholder="Description" name="description" required>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="left">
+                                <label><b>Money</b></label>
+                            </td>
+                            <td align="right">
+                                <input type="number" step=".01" placeholder="Money" name="money" required>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="left">
+                            <label><b>Product count</b></label>
+                            </td>
+                            <td align="right">
+                                <input type="number" name="productCount" required>
+                            </td>
+                        </tr>
+                        <label><b>Products</b></label>
+                        <div th:each="product : ${allProducts}">
+                            <tr>
+                                <td align="left">
+                                    <input type="checkbox" name="productIds" th:attr="value=${product.id}">
+                                </td>
+                                <td align="left"><p th:text="${product.name} + ' - ' + ${product.price}"></p></td>
+                            </tr>
+
+                        </div>
+                    </table>
+                    <button type="submit" class="btn btn-lg btn-block btn-primary">Save</button>
+
+                </div>
+            </div>
+        </form>
+    </div>
+
+
+</div>
