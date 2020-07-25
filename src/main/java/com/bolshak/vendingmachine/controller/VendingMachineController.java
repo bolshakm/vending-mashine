@@ -2,8 +2,11 @@ package com.bolshak.vendingmachine.controller;
 
 import com.bolshak.vendingmachine.forms.VendingMachineForm;
 import com.bolshak.vendingmachine.model.Product;
+import com.bolshak.vendingmachine.model.User;
 import com.bolshak.vendingmachine.model.VendingMachine;
+import com.bolshak.vendingmachine.model.VendingMachineHasProduct;
 import com.bolshak.vendingmachine.service.ProductService;
+import com.bolshak.vendingmachine.service.UserService;
 import com.bolshak.vendingmachine.service.VendingMachineHasProductService;
 import com.bolshak.vendingmachine.service.VendingMachineService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +27,12 @@ public class VendingMachineController {
 
 	@Autowired
 	private ProductService productServiceImpl;
+
+	@Autowired
+	private UserService userService;
+
+	@Autowired
+	private VendingMachineHasProductService vendingMachineHasProductService;
 
 	@GetMapping("/vending-machine")
 	public String get(Model model) {
@@ -63,5 +72,21 @@ public class VendingMachineController {
 			vendingMachineServiceImpl.save(vendingMachineForm);
 		}
 		return "redirect:/vending-machine";
+	}
+
+	@GetMapping("/vending-machine/select")
+	public String select(@RequestParam String id,@RequestParam(required = false) String message,  Model model) {
+		long vendingMachineId = Long.parseLong(id);
+		VendingMachine vendingMachine = vendingMachineServiceImpl.find(vendingMachineId);
+		List<VendingMachineHasProduct> vendingMachineProducts = vendingMachineHasProductService.findAllByVendingMachine(
+				vendingMachineId);
+		User user = userService.getCurrentUser();
+
+		model.addAttribute("user", user);
+		model.addAttribute("message", message);
+		model.addAttribute("vendingMachine", vendingMachine);
+		model.addAttribute("vendingMachineProducts", vendingMachineProducts);
+		model.addAttribute("isSelectedVMPage", true);
+		return "index";
 	}
 }

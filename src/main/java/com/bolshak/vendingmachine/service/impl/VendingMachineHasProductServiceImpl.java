@@ -1,5 +1,6 @@
 package com.bolshak.vendingmachine.service.impl;
 
+import com.bolshak.vendingmachine.model.VendingMachine;
 import com.bolshak.vendingmachine.model.VendingMachineHasProduct;
 import com.bolshak.vendingmachine.repo.VendingMachineHasProductRepo;
 import com.bolshak.vendingmachine.service.VendingMachineHasProductService;
@@ -16,6 +17,11 @@ public class VendingMachineHasProductServiceImpl implements VendingMachineHasPro
 	private VendingMachineHasProductRepo vendingMachineHasProductRepo;
 
 	@Override
+	public void save(VendingMachineHasProduct vendingMachineHasProduct) {
+		vendingMachineHasProductRepo.save(vendingMachineHasProduct);
+	}
+
+	@Override
 	public void saveAll(List<VendingMachineHasProduct> vendingMachineHasProducts) {
 		vendingMachineHasProductRepo.saveAll(vendingMachineHasProducts);
 	}
@@ -25,6 +31,17 @@ public class VendingMachineHasProductServiceImpl implements VendingMachineHasPro
 		List<VendingMachineHasProduct> allByVendingMachineId =
 				findAllByVendingMachineId(vendingMachineId);
 		vendingMachineHasProductRepo.deleteAll(allByVendingMachineId);
+	}
+
+	@Override
+	public List<VendingMachineHasProduct> findAllByVendingMachine(Long id) {
+		return vendingMachineHasProductRepo.findAllByVendingMachineId(id);
+	}
+
+	@Override
+	public VendingMachineHasProduct findByVendingMachineIdAndProductId(Long vendingMachineId,
+			Long productId) {
+		return vendingMachineHasProductRepo.findAllByVendingMachineIdAndProductId(vendingMachineId, productId);
 	}
 
 	private List<VendingMachineHasProduct> findAllByVendingMachineId(Long vendingMachineId) {

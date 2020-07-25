@@ -43,7 +43,12 @@ public class VendingMachineServiceImpl implements VendingMachineService {
 	}
 
 	@Override
-//	todo add transaction
+	public void save(VendingMachine vendingMachine) {
+		vendingMachineRepo.save(vendingMachine);
+	}
+
+	@Override
+	@Transactional
 	public void update(VendingMachineForm form) {
 		Optional<VendingMachine> vendingMachineForUpdate =
 				vendingMachineRepo.findById(form.getId());

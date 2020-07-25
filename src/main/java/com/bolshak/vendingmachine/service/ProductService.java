@@ -2,6 +2,7 @@ package com.bolshak.vendingmachine.service;
 
 import com.bolshak.vendingmachine.forms.ProductForm;
 import com.bolshak.vendingmachine.model.Product;
+import com.bolshak.vendingmachine.model.VendingMachine;
 
 import java.util.List;
 
@@ -18,4 +19,5 @@ public interface ProductService {
 	Product findById(Long id);
 
 	List<Product> findAll(List<Long> ids);
+
 }

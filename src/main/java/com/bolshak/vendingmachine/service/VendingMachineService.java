@@ -9,6 +9,8 @@ public interface VendingMachineService {
 
 	void save(VendingMachineForm form);
 
+	void save(VendingMachine vendingMachine);
+
 	void update(VendingMachineForm form);
 
 	void delete(Long id);

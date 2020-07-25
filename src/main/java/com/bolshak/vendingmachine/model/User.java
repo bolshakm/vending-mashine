@@ -2,6 +2,7 @@ package com.bolshak.vendingmachine.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,11 +23,11 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Set;
 
-@Getter
+@Entity
 @AllArgsConstructor
 @NoArgsConstructor
+@Data
 @Builder
-@Entity
 public class User implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
