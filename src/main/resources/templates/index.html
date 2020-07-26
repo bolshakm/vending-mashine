@@ -11,24 +11,24 @@
 
 <div th:insert="element/header :: header"></div>
 
-<div th:if="${isIndex}">
+<div th:if="${isIndexPage}">
     <div th:insert="element/indexBody :: body"></div>
 </div>
 
 
-<div th:if="${isProduct}">
+<div th:if="${isProductPage}">
     <div th:insert="element/product :: body"></div>
 </div>
 
 <div th:if="${isUserPage}">
-    <div th:insert="element/user :: body"></div>
+    <div th:insert="element/users-product :: body"></div>
 </div>
 
 <div th:if="${isSelectedVMPage}">
     <div th:insert="element/selectedvendingmachine :: body"></div>
 </div>
 
-<div th:if="${isVendingMachine}">
+<div th:if="${isVendingMachinePage}">
     <div th:insert="element/vendingmachine :: body"></div>
 </div>
 

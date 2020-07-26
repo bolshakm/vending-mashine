@@ -1,6 +1,5 @@
 package com.bolshak.vendingmachine.service.impl;
 
-import com.bolshak.vendingmachine.model.VendingMachine;
 import com.bolshak.vendingmachine.model.VendingMachineHasProduct;
 import com.bolshak.vendingmachine.repo.VendingMachineHasProductRepo;
 import com.bolshak.vendingmachine.service.VendingMachineHasProductService;
@@ -39,8 +38,7 @@ public class VendingMachineHasProductServiceImpl implements VendingMachineHasPro
 	}
 
 	@Override
-	public VendingMachineHasProduct findByVendingMachineIdAndProductId(Long vendingMachineId,
-			Long productId) {
+	public VendingMachineHasProduct findByVendingMachineIdAndProductId(Long vendingMachineId, Long productId) {
 		return vendingMachineHasProductRepo.findAllByVendingMachineIdAndProductId(vendingMachineId, productId);
 	}
 

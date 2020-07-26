@@ -50,8 +50,7 @@ public class VendingMachineServiceImpl implements VendingMachineService {
 	@Override
 	@Transactional
 	public void update(VendingMachineForm form) {
-		Optional<VendingMachine> vendingMachineForUpdate =
-				vendingMachineRepo.findById(form.getId());
+		Optional<VendingMachine> vendingMachineForUpdate = vendingMachineRepo.findById(form.getId());
 
 		if (vendingMachineForUpdate.isPresent()) {
 			VendingMachine vendingMachine = vendingMachineForUpdate.get();
@@ -89,8 +88,7 @@ public class VendingMachineServiceImpl implements VendingMachineService {
 
 	private void saveProductsForVendingMachine(VendingMachineForm form,
 			VendingMachine vendingMachine) {
-		List<Product> products =
-				productServiceImpl.findAll(convertProductsId(form.getProductIds()));
+		List<Product> products = productServiceImpl.findAll(convertProductsId(form.getProductIds()));
 
 		List<VendingMachineHasProduct> vendingMachineHasProductList = products
 				.stream()
@@ -105,8 +103,7 @@ public class VendingMachineServiceImpl implements VendingMachineService {
 		vendingMachineHasProductService.saveAll(vendingMachineHasProductList);
 	}
 
-	private ProductVendingMachineCompositeId buildCompositeId(VendingMachine vendingMachine,
-			Product product) {
+	private ProductVendingMachineCompositeId buildCompositeId(VendingMachine vendingMachine, Product product) {
 		return ProductVendingMachineCompositeId.builder()
 				.productId(product.getId())
 				.vendingMachineId(vendingMachine.getId())

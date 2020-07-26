@@ -16,9 +16,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.math.BigDecimal;
 import java.util.Collections;
-import java.util.List;
 import java.util.Objects;
 
 @Service
@@ -59,7 +59,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-//	@Transactional
+	@Transactional
 	public boolean isBuyingProductSuccessful(Long vendingMachineId, Long productId) {
 		User user = getCurrentUser();
 		Product product = productService.findById(productId);
@@ -87,7 +87,6 @@ public class UserServiceImpl implements UserService {
 		vendingMachineHasProductService.save(vendingMachineHasProduct);
 		vendingMachineService.save(vendingMachine);
 		return true;
-
 	}
 
 	@Override

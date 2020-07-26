@@ -2,7 +2,6 @@ package com.bolshak.vendingmachine.service.impl;
 
 import com.bolshak.vendingmachine.forms.ProductForm;
 import com.bolshak.vendingmachine.model.Product;
-import com.bolshak.vendingmachine.model.VendingMachine;
 import com.bolshak.vendingmachine.repo.ProductRepo;
 import com.bolshak.vendingmachine.service.ProductService;
 import com.sun.istack.Nullable;
@@ -11,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -38,7 +36,6 @@ public class ProductServiceImpl implements ProductService {
 			product.setPrice(form.getPrice());
 			productRepoImpl.save(product);
 		}
-
 	}
 
 	@Override
