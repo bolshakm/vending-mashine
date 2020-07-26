@@ -13,4 +13,7 @@ public interface VendingMachineHasProductRepo  extends JpaRepository<VendingMach
 
 	@Query("from VendingMachineHasProduct pvm where pvm.vendingMachine.id = :vmId and pvm.product.id = :productId")
 	VendingMachineHasProduct findAllByVendingMachineIdAndProductId(@Param("vmId") Long vmId, @Param("productId") Long productId);
+
+	@Query("delete from VendingMachineHasProduct where product.id =:id")
+	void deleteByProductId(@Param("id") Long id);
 }

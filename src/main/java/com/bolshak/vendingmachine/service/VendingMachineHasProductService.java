@@ -12,6 +12,8 @@ public interface VendingMachineHasProductService {
 
 	void deleteAllByVendingMachineId(Long vendingMachineId);
 
+	void deleteProductInVendingMachine(Long productId);
+
 	List<VendingMachineHasProduct> findAllByVendingMachine(Long id);
 
 	VendingMachineHasProduct findByVendingMachineIdAndProductId(Long vendingMachineId,

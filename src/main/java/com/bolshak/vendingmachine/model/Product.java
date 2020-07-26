@@ -3,15 +3,13 @@ package com.bolshak.vendingmachine.model;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;
@@ -27,8 +25,8 @@ public class Product implements Serializable {
 	private Long id;
 	private String name;
 	private BigDecimal price;
-	@OneToMany
+	@ManyToMany
 	private List<VendingMachine> vendingMachines;
-	@OneToMany
+	@ManyToMany
 	private List<User> users;
 }

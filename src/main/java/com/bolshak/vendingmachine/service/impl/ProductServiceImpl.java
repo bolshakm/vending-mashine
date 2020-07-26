@@ -8,6 +8,7 @@ import com.sun.istack.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,6 +17,9 @@ public class ProductServiceImpl implements ProductService {
 
 	@Autowired
 	private ProductRepo productRepoImpl;
+
+	@Autowired
+	private VendingMachineHasProductServiceImpl vendingMachineHasProductService;
 
 	@Override
 	public void create(ProductForm form) {
@@ -39,7 +43,9 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
+	@Transactional
 	public void delete(Long id) {
+		vendingMachineHasProductService.deleteProductInVendingMachine(id);
 		productRepoImpl.deleteById(id);
 	}
 

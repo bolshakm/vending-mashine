@@ -59,7 +59,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	@Transactional
+//	@Transactional
 	public boolean isBuyingProductSuccessful(Long vendingMachineId, Long productId) {
 		User user = getCurrentUser();
 		Product product = productService.findById(productId);

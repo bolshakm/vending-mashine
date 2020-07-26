@@ -3,8 +3,6 @@ package com.bolshak.vendingmachine.model;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.CollectionTable;
@@ -17,7 +15,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;
@@ -41,7 +39,7 @@ public class User implements Serializable {
 	@CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
 	@Enumerated(EnumType.STRING)
 	private Set<Role> role;
-	@OneToMany
+	@ManyToMany
 	private List<Product> products;
 
 }

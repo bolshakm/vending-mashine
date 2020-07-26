@@ -26,8 +26,8 @@ public class MainController {
 
 	public static final String LOGIN_IS_ALREADY_USED_ERROR = " Sorry this login is already used";
 	public static final String INVALID_DATA_ERROR = "Sorry, but you input invalid data.";
-	public static final String PASSWORD_ERROR =
-			"Password and Confirm password fields are not equal.";
+	public static final String PASSWORD_ERROR = "Password and Confirm password fields are not equal.";
+
 	@Autowired
 	private VendingMachineService vendingMachineServiceImpl;
 

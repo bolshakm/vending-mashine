@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -16,6 +15,7 @@ import java.util.List;
 
 import static com.bolshak.vendingmachine.util.ModelAttributesConstants.ALL_PRODUCTS;
 import static com.bolshak.vendingmachine.util.ModelAttributesConstants.IS_PRODUCT_PAGE;
+import static com.bolshak.vendingmachine.util.ModelAttributesConstants.IS_USER_PAGE;
 import static java.lang.String.format;
 
 @Controller
@@ -33,19 +33,19 @@ public class UserController {
 	@GetMapping("/users-product")
 	public String getUserPage(Model model) {
 		model.addAttribute(ALL_PRODUCTS, userService.getCurrentUser().getProducts());
-		model.addAttribute(IS_PRODUCT_PAGE, true);
+		model.addAttribute(IS_USER_PAGE, true);
 		return PageConstants.INDEX;
 	}
 
 	@GetMapping("/users-product/use")
 	public String use(Model model, @RequestParam String id) {
 		userService.useProduct(Long.parseLong(id));
-		return PageConstants.REDIRECT_TO_USER;
+		return PageConstants.REDIRECT_TO_USERS_PRODUCT;
 	}
 
 	@PreAuthorize("hasAnyAuthority('ADMIN', 'USER')")
 	@GetMapping("/users-product/buy")
-	public String buy(@RequestParam String productId, @RequestParam String vmId, Model model, Errors errors) {
+	public String buy(@RequestParam String productId, @RequestParam String vmId, Model model) {
 
 		Long idByProduct = Long.parseLong(productId);
 		Long idByVendingMachine = Long.parseLong(vmId);

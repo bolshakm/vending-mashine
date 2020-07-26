@@ -33,6 +33,11 @@ public class VendingMachineHasProductServiceImpl implements VendingMachineHasPro
 	}
 
 	@Override
+	public void deleteProductInVendingMachine(Long productId) {
+		vendingMachineHasProductRepo.deleteByProductId(productId);
+	}
+
+	@Override
 	public List<VendingMachineHasProduct> findAllByVendingMachine(Long id) {
 		return vendingMachineHasProductRepo.findAllByVendingMachineId(id);
 	}
