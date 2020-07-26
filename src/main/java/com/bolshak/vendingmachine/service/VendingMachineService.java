@@ -18,4 +18,5 @@ public interface VendingMachineService {
 	List<VendingMachine> findAll();
 
 	VendingMachine find(Long id);
+
 }

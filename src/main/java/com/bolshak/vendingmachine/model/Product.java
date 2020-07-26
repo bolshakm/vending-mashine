@@ -26,7 +26,5 @@ public class Product implements Serializable {
 	private String name;
 	private BigDecimal price;
 	@ManyToMany
-	private List<VendingMachine> vendingMachines;
-	@ManyToMany
 	private List<User> users;
 }
