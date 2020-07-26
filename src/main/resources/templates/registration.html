@@ -61,9 +61,7 @@
 
 <h2 align ="center">Registration Form</h2>
 
-<div th:if="${error}">
-    Sorry this login is already used
-</div>
+<p class="lead"  th:text=" ${error}"></p>
 
 <form th:action="@{/registration}" align ="center" method="post">
 
@@ -73,6 +71,9 @@
 
         <label><b>Password</b></label>
         <input type="password" placeholder="Enter Password" name="password" required>
+
+        <label><b>Confirm Password</b></label>
+        <input type="password" placeholder="Enter Password " name="confirmPassword" required>
 
         <label><b>Money</b></label>
         <input type=number placeholder="Enter money" name="money" required>

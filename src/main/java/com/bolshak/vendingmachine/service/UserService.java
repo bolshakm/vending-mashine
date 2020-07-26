@@ -1,11 +1,11 @@
 package com.bolshak.vendingmachine.service;
 
 
-import com.bolshak.vendingmachine.forms.UserForm;
+import com.bolshak.vendingmachine.forms.RegistrationForm;
 import com.bolshak.vendingmachine.model.User;
 
 public interface UserService {
-	void save(UserForm form);
+	void save(RegistrationForm form);
 
 	boolean isExist(String login);
 

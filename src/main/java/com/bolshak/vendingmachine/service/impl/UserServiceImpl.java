@@ -1,6 +1,6 @@
 package com.bolshak.vendingmachine.service.impl;
 
-import com.bolshak.vendingmachine.forms.UserForm;
+import com.bolshak.vendingmachine.forms.RegistrationForm;
 import com.bolshak.vendingmachine.model.Product;
 import com.bolshak.vendingmachine.model.Role;
 import com.bolshak.vendingmachine.model.User;
@@ -37,7 +37,7 @@ public class UserServiceImpl implements UserService {
 	private VendingMachineService vendingMachineService;
 
 	@Override
-	public void save(UserForm form) {
+	public void save(RegistrationForm form) {
 		User user = User.builder()
 				.login(form.getLogin())
 				.password(form.getPassword())

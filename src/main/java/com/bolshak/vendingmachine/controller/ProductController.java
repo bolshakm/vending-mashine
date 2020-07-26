@@ -3,12 +3,12 @@ package com.bolshak.vendingmachine.controller;
 import com.bolshak.vendingmachine.forms.ProductForm;
 import com.bolshak.vendingmachine.model.Product;
 import com.bolshak.vendingmachine.service.ProductService;
-import com.bolshak.vendingmachine.service.UserService;
 import com.bolshak.vendingmachine.util.PageConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -23,17 +23,11 @@ import static java.util.Objects.isNull;
 
 @Controller()
 public class ProductController {
-
-	public static final String USER_HAS_PRODUCT_ERROR =
-			"Sorry but, you have this product. Use this product for buying again.";
-	public static final String BUYING_PRPDUCT_ERROR =
-			"Sorry but, you haven't enough  money or product is absent.";
 	public static final String PRODUCT_DOES_NOT_EXIST = "Product does not exist";
+	public static final String INVALID_DATA_ERROR = "You input invalid data.";
+
 	@Autowired
 	private ProductService productService;
-
-	@Autowired
-	private UserService userService;
 
 	@PreAuthorize("hasAnyAuthority('ADMIN', 'USER')")
 	@GetMapping("/products")
@@ -42,34 +36,14 @@ public class ProductController {
 		return PageConstants.INDEX;
 	}
 
-	@PreAuthorize("hasAnyAuthority('ADMIN', 'USER')")
-	@GetMapping("/product/buy")
-	public String buy(@RequestParam String productId, @RequestParam String vmId, Model model) {
-
-		//todo add validation check
-		Long idByProduct = Long.parseLong(productId);
-		Long idByVendingMachine = Long.parseLong(vmId);
-
-		if (userService.hasUserTheProduct(idByProduct)) {
-			return format(PageConstants.REDIRECT_TO_SELECT_VM_WITH_MESSAGE, vmId,
-					USER_HAS_PRODUCT_ERROR);
-		}
-
-		boolean isBuyingProductSuccessful = userService
-				.isBuyingProductSuccessful(idByVendingMachine, idByProduct);
-
-		if (!isBuyingProductSuccessful) {
-			return format(PageConstants.REDIRECT_TO_SELECT_VM_WITH_MESSAGE, vmId,
-					BUYING_PRPDUCT_ERROR);
-		}
-		initProductPage(model);
-
-		return format(PageConstants.REDIRECT_TO_SELECT_VM_WITHOUT_MESSAGE, vmId);
-	}
-
 	@PreAuthorize("hasAnyAuthority('ADMIN')")
 	@PostMapping("/products/save")
-	public String save(ProductForm form) {
+	public String save(ProductForm form, Errors errors, Model model) {
+		if (errors.hasErrors()){
+			model.addAttribute(ERROR, INVALID_DATA_ERROR);
+			return PageConstants.REDIRECT_TO_PRODUCTS;
+		}
+
 		if (isNull(form.getId())) {
 			productService.create(form);
 		} else {
