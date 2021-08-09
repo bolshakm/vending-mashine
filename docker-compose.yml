@@ -1,0 +1,25 @@
+version: '3.9'
+
+services:
+  vm-db-service:
+    image: mysql:latest
+    environment:
+      - MYSQL_ROOT_PASSWORD=05061995
+      - MYSQL_DATABASE=vmtest
+      - MYSQL_USER=user
+      - MYSQL_PASSWORD=0506
+    volumes:
+      - ~/volumes/vm-db:/data/mysql
+    ports:
+      - 3333:3306
+    container_name: vm-db
+
+  vm-app-service:
+    image: vm-cust:latest
+    build:
+      dockerfile: Dockerfile
+    depends_on:
+      - vm-db-service
+    ports:
+      - 8080:8080
+    container_name: vm-app
